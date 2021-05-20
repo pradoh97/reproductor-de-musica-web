@@ -1,3 +1,9 @@
+/*
+  Algunas cosas que se podrían mejorar (si esto fueras a ponerlo en producción).
+
+  La carga de canciones: asíncrona en lugar de esperar un tiempo fijo (que puede fallar).
+  Recibir los datos desde el servidor: título, duración, álbum en lugar de tenerlos hardcodeados en el script.
+*/
 window.addEventListener('load', iniciarReproductor);
 
 let idFrame, boton = [], deslizador = [], reproductor, audio, cancion, caratula,
@@ -61,6 +67,7 @@ function cargarCancion(sentido){
   caratulaDOM = document.querySelector('.cancion__caratula img');
   caratulaDOM.src = caratula;
   caratulaDOM.classList.remove('oculto');
+  deslizador['progresoCancion'].value = 0;
   setTimeout( () => {
     cambiarCancion();
   }, 5000);
@@ -72,9 +79,12 @@ function cambiarCancion(){
   duracionDOM.innerText = `00:00/${duracion.minutos}:${duracion.segundos}`;
   deslizador['progresoCancion'].max = audio.duration;
 
+
   document.querySelector('.cancion__titulo').innerText = listadoCanciones[reproduciendo];
 
   if(boton['reproducirPausa'].firstChild.classList.contains(icono['pausa'])) audio.play();
+
+
 }
 
 
