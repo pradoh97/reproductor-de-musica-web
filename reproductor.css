@@ -23,7 +23,7 @@ body{
   padding: 1em 2em 2em;
   justify-content: center;
   align-items: center;
-  gap: 2em;
+  gap: 0.5em 1em;
 }
 .reproductor button{
   border: none;
@@ -56,11 +56,13 @@ body{
   justify-content: center;
   flex-basis: 15em;
   text-align: center;
+  position: relative;
+  padding-top: 2em;
 }
 .reproductor .cancion__titulo{
-  font-size: 1em;
+  font-size: 0.9em;
   margin: 0;
-  margin-top: 0.5em;
+  text-transform: uppercase;
 }
 
 .reproductor .cancion__caratula{
@@ -74,6 +76,8 @@ body{
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  position: absolute;
+  bottom: 2.75em;
 }
 .reproductor .cancion__caratula img{
   width: 100%;
