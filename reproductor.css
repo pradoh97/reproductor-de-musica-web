@@ -123,11 +123,16 @@ body{
 .reproductor .controles__volumen{
   position: relative;
 }
+.reproductor .controles__volumen button{
+  width: 1.5em;
+}
 .reproductor .controles__volumen input{
   position: absolute;
   transform-origin: left;
-  transform: rotate(-90deg) translateY(1em) translateX(-0.5em);
-  width: 100px
+  transform: rotate(-90deg) translateY(1em) translateX(1.5em);
+  width: 100px;
+  box-shadow: 0 0 2em 0.5em rgb(0, 0, 0);
+  padding: 2em 0em;
 }
 .reproductor input[type="range"]{
     cursor: pointer;

@@ -8,6 +8,9 @@ icono = [], uris = {musica: 'Musica/', caratula: 'Caratulas/'}, reproduciendo = 
 
 icono['pausa'] = 'fa-pause';
 icono['reproducir'] = 'fa-play';
+icono['volumenSilenciado'] = 'fas fa-volume-mute';
+icono['volumenBajo'] = 'fas fa-volume-down';
+icono['volumenAlto'] = 'fas fa-volume-up';
 
 function iniciarReproductor(){
   boton['reproducirPausa'] = document.querySelector('.controles__reproduccion .fa-play').parentElement;
@@ -89,7 +92,6 @@ function alternarDeslizadorVolumen(e){
 
   if(e.target == boton['volumen'] || e.target == boton['volumen'].firstChild){
     deslizador['volumen'].classList.toggle('oculto');
-    console.log(e);
   }else{
     deslizador['volumen'].classList.add('oculto');
   }
@@ -98,6 +100,12 @@ function alternarDeslizadorVolumen(e){
 function moverVolumen(e){
   let volumen = e.target.value;
   audio.volume = volumen/100;
+
+  let iconoVolumen = boton['volumen'].querySelector('i');
+
+  if(audio.volume == 0) iconoVolumen.className = icono['volumenSilenciado'];
+  else if(audio.volume < 0.5) iconoVolumen.className = icono['volumenBajo'];
+  else iconoVolumen.className = icono['volumenAlto'];
 }
 
 function actualizarReproductor(){
