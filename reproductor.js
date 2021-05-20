@@ -63,7 +63,7 @@ function cargarCancion(sentido){
   caratulaDOM.classList.remove('oculto');
   setTimeout( () => {
     cambiarCancion();
-  }, 200);
+  }, 5000);
 }
 
 function cambiarCancion(){
