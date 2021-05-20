@@ -1,0 +1,133 @@
+:root{
+  font-size: calc(0.8em + 0.3vmax);
+}
+body{
+  background: rgb(30, 30, 30);
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.oculto{
+  display: none;
+}
+
+.reproductor{
+  position: fixed;
+  bottom: 0;
+  background:rgb(0, 0, 0);
+  color: white;
+  display: flex;
+  flex-flow: row wrap;
+  right: 0;
+  left: 0;
+  padding: 1em 2em 2em;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+}
+.reproductor button{
+  border: none;
+  background: none;
+  color: white;
+  font-size: 1.25em;
+  cursor: pointer;
+}
+.reproductor button i{
+  transition-property: transform color;
+  transition-duration: 0.3s;
+  color: rgb(150, 150, 150);
+}
+.reproductor button:hover i{
+  color: rgb(255, 255, 255);
+  transform: scale(1.2);
+}
+.reproductor button:active i{
+  color: rgb(100, 100, 100);
+}
+.reproductor button .fa-play, .reproductor button .fa-pause{
+  font-size: 2em;
+  margin-left: 0.1em;
+}
+
+.reproductor .cancion{
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 15em;
+  text-align: center;
+}
+.reproductor .cancion__titulo{
+  font-size: 1em;
+  margin: 0;
+  margin-top: 0.5em;
+}
+
+.reproductor .cancion__caratula{
+  background: rgb(40, 40, 40);
+  border-radius: 50%;
+  border: 0.35em solid rgb(50, 50, 50);
+  width: 6em;
+  height: 6em;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.reproductor .cancion__caratula img{
+  width: 100%;
+}
+.reproductor .cancion__caratula i{
+  font-size: 2em;
+  margin-right: 0.1em;
+  margin-bottom: 0.1em;
+}
+.reproductor .cancion__titulo{
+  font-weight: bold;
+}
+
+.reproductor .reproduccion{
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 20em;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+.reproductor .reproduccion__progreso{
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+.reproductor .reproduccion__progreso input{
+  width: 100%;
+}
+.reproductor .reproduccion__controles{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}
+.reproductor .controles__reproduccion{
+  display: flex;
+  gap: 0.5em;
+  flex-grow: 1;
+  justify-content: center;
+  margin-left: 2em;
+}
+.reproductor .controles__volumen{
+  position: relative;
+}
+.reproductor .controles__volumen input{
+  position: absolute;
+  transform-origin: left;
+  transform: rotate(-90deg) translateY(1em) translateX(-0.5em);
+  width: 100px
+}
+.reproductor input[type="range"]{
+    cursor: pointer;
+}
+.reproductor input[type="range"]:active{
+  cursor: grabbing;
+}
