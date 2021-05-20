@@ -2,7 +2,7 @@ window.addEventListener('load', iniciarReproductor);
 
 let idFrame, boton = [], deslizador = [], reproductor, audio, cancion, caratula,
 duracion, duracionDOM, caratulaDOM,
-listadoCanciones = ['A Veces se Gana y a Veces se Pierde', 'Indie Explicit',
+listadoCanciones = ['A Veces se Gana, a Veces se Pierde', 'Indie Explicit',
                     'Quien Sepa lo Que es Correcto, Hará lo Correcto'],
 icono = [], uris = {musica: 'Musica/', caratula: 'Caratulas/'}, reproduciendo = 0;
 
@@ -25,7 +25,7 @@ function iniciarReproductor(){
 
   deslizador['volumen'] = document.querySelector('.controles__volumen input');
   deslizador['volumen'].addEventListener('input', moverVolumen);
-  
+
   deslizador['progresoCancion'] = document.querySelector('.reproduccion__progreso input');
   deslizador['progresoCancion'].addEventListener('input', moverProgreso);
 
@@ -60,7 +60,7 @@ function cargarCancion(sentido){
   caratulaDOM.classList.remove('oculto');
   setTimeout( () => {
     cambiarCancion();
-  }, 2000);
+  }, 200);
 }
 
 function cambiarCancion(){
