@@ -1,8 +1,9 @@
 :root{
   font-size: calc(0.8em + 0.3vmax);
 }
+
 body{
-  background: rgb(30, 30, 30);
+  background-color: rgb(30,30,30);
   margin: 0;
   font-family: sans-serif;
 }
@@ -14,8 +15,8 @@ body{
 .reproductor{
   position: fixed;
   bottom: 0;
-  background:rgb(0, 0, 0);
-  color: white;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   display: flex;
   flex-flow: row wrap;
   right: 0;
@@ -25,25 +26,31 @@ body{
   align-items: center;
   gap: 0.5em 1em;
 }
+
 .reproductor button{
   border: none;
   background: none;
-  color: white;
+  color: inherit;
   font-size: 1.25em;
   cursor: pointer;
+  padding: 0.5em;
 }
+
 .reproductor button i{
   transition-property: transform color;
   transition-duration: 0.3s;
   color: rgb(150, 150, 150);
 }
+
 .reproductor button:hover i{
-  color: rgb(255, 255, 255);
+  color: inherit;
   transform: scale(1.2);
 }
+
 .reproductor button:active i{
-  color: rgb(100, 100, 100);
+  color: rgb(50, 50, 50);
 }
+
 .reproductor button .fa-play, .reproductor button .fa-pause{
   font-size: 2em;
   margin-left: 0.1em;
@@ -52,10 +59,10 @@ body{
 .reproductor .cancion{
   display: flex;
   flex-flow: column;
-  align-items: center;
   justify-content: center;
-  flex-basis: 15em;
+  align-items: center;
   text-align: center;
+  flex-basis: 15em;
 }
 
 .reproductor .cancion__titulo{
@@ -63,12 +70,13 @@ body{
   margin: 0;
   padding-top: 3.5em;
   text-transform: uppercase;
+  font-weight: bold;
 }
 
 .reproductor .cancion__caratula{
-  background: rgb(40, 40, 40);
+  background-color: rgb(40,40,40);
   border-radius: 50%;
-  border: 0.35em solid rgb(50, 50, 50);
+  border: 0.35em solid rgb(50,50,50);
   width: 6em;
   height: 6em;
   display: flex;
@@ -79,23 +87,22 @@ body{
   position: absolute;
   top: -3.5em;
 }
+
 .reproductor .cancion__caratula img{
   width: 100%;
 }
+
 .reproductor .cancion__caratula i{
   font-size: 2em;
   margin-right: 0.1em;
   margin-bottom: 0.1em;
 }
-.reproductor .cancion__titulo{
-  font-weight: bold;
-}
 
 .reproductor .reproduccion{
   display: flex;
+  flex-flow: column;
   flex-grow: 1;
   flex-basis: 20em;
-  flex-flow: column;
   justify-content: center;
   align-items: center;
 }
@@ -104,22 +111,20 @@ body{
   flex-flow: column;
   width: 100%;
 }
-.reproductor .reproduccion__progreso input{
-  width: 100%;
-}
 .reproductor .reproduccion__controles{
   display: flex;
   justify-content: center;
-  width: 100%;
   align-items: center;
+  width: 100%;
 }
 .reproductor .controles__reproduccion{
   display: flex;
   gap: 0.5em;
   flex-grow: 1;
   justify-content: center;
-  margin-left: 2em;
+  margin-left: 3em;
 }
+
 .reproductor .controles__volumen{
   position: relative;
 }
@@ -128,14 +133,15 @@ body{
 }
 .reproductor .controles__volumen input{
   position: absolute;
-  transform-origin: left;
-  transform: rotate(-90deg) translateY(1em) translateX(1.5em);
   width: 100px;
-  box-shadow: 0 0 2em 0.5em rgb(0, 0, 0);
+  transform-origin: left;
+  transform: rotate(-90deg) translateY(1em) translateX(1.25em);
+  box-shadow: 0 0 3em 1em rgb(0, 0, 0);
   padding: 2em 0em;
 }
+
 .reproductor input[type="range"]{
-    cursor: pointer;
+  cursor: pointer;
 }
 .reproductor input[type="range"]:active{
   cursor: grabbing;

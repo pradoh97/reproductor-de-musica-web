@@ -1,16 +1,9 @@
-/*
-  Algunas cosas que se podrían mejorar (si esto fueras a ponerlo en producción).
-
-  La carga de canciones: asíncrona en lugar de esperar un tiempo fijo (que puede fallar).
-  Recibir los datos desde el servidor: título, duración, álbum en lugar de tenerlos hardcodeados en el script.
-*/
 window.addEventListener('load', iniciarReproductor);
 
-let idFrame, boton = [], deslizador = [], reproductor, audio, cancion, caratula,
-duracion, duracionDOM, caratulaDOM,
-listadoCanciones = ['A Veces se Gana, a Veces se Pierde', 'Indie Explicit',
-                    'Quien Sepa lo Que es Correcto, Hará lo Correcto'],
-icono = [], uris = {musica: 'Musica/', caratula: 'Caratulas/'}, reproduciendo = 0;
+let idFrame, boton = [], deslizador = [], reproductor, audio, cancion, caratula, duracion, duracionDOM,
+    caratulaDOM, listadoCanciones = ['A Veces se Gana, a Veces se Pierde', 'Indie Explicit',
+                                    'Quien Sepa lo Que es Correcto, Hará lo Correcto'];
+    icono = [], uris = {musica: 'Musica/', caratula: 'Caratulas/'}, reproduciendo = 0;
 
 icono['pausa'] = 'fa-pause';
 icono['reproducir'] = 'fa-play';
@@ -19,28 +12,24 @@ icono['volumenBajo'] = 'fas fa-volume-down';
 icono['volumenAlto'] = 'fas fa-volume-up';
 
 function iniciarReproductor(){
-  boton['reproducirPausa'] = document.querySelector('.controles__reproduccion .fa-play').parentElement;
-  boton['reproducirPausa'].addEventListener('click', alternarReproduccion);
-
+  boton['reproducirPausa'] = document.querySelector('.controles__reproduccion .' + icono['reproducir']).parentElement;
   boton['cancionSiguiente'] = document.querySelector('.controles__reproduccion .fa-step-forward').parentElement;
-  boton['cancionSiguiente'].addEventListener('click', () => cargarCancion(1));
-
   boton['cancionAnterior'] = document.querySelector('.controles__reproduccion .fa-step-backward').parentElement;
-  boton['cancionAnterior'].addEventListener('click', () => cargarCancion(-1));
-
   boton['volumen'] = document.querySelector('.controles__volumen button');
+  deslizador['volumen'] = document.querySelector('.controles__volumen input');
+  deslizador['progresoCancion'] = document.querySelector('.reproduccion__progreso input');
+
+  caratulaDOM = document.querySelector('.cancion__caratula img');
+  duracionDOM = document.querySelector('.reproduccion__progreso time');
+  reproductor = document.querySelector('.reproductor');
+
+  boton['reproducirPausa'].addEventListener('click', alternarReproduccion);
+  boton['cancionSiguiente'].addEventListener('click', () => cargarCancion(1));
+  boton['cancionAnterior'].addEventListener('click', () => cargarCancion(-1));
   boton['volumen'].addEventListener('click', alternarDeslizadorVolumen);
   document.addEventListener('click', alternarDeslizadorVolumen);
-
-  deslizador['volumen'] = document.querySelector('.controles__volumen input');
   deslizador['volumen'].addEventListener('input', moverVolumen);
-
-  deslizador['progresoCancion'] = document.querySelector('.reproduccion__progreso input');
   deslizador['progresoCancion'].addEventListener('input', moverProgreso);
-
-  duracionDOM = document.querySelector('.reproduccion__progreso time');
-
-  reproductor = document.querySelector('.reproductor');
 
   audio = new Audio();
   cargarCancion(reproduciendo);
@@ -55,22 +44,18 @@ function cargarCancion(sentido){
   let cambiarA = reproduciendo + sentido;
 
   if(cambiarA >= listadoCanciones.length) reproduciendo = 0;
-  else if(cambiarA < 0) reproduciendo = listadoCanciones.length-1;
-  else reproduciendo += sentido;
+  else if(cambiarA < 0) reproduciendo = listadoCanciones.length - 1;
+  else reproduciendo = cambiarA;
 
   cancion = uris.musica + listadoCanciones[reproduciendo] + '.mp3';
   caratula = uris.caratula + listadoCanciones[reproduciendo] + '.jpg';
 
   audio.src = cancion;
-
-  //Se le dá tiempo a que cargue, mejor con programación asíncrona
-  caratulaDOM = document.querySelector('.cancion__caratula img');
   caratulaDOM.src = caratula;
   caratulaDOM.classList.remove('oculto');
   deslizador['progresoCancion'].value = 0;
-  setTimeout( () => {
-    cambiarCancion();
-  }, 5000);
+
+  setTimeout( () => cambiarCancion(), 5000);
 }
 
 function cambiarCancion(){
@@ -79,50 +64,23 @@ function cambiarCancion(){
   duracionDOM.innerText = `00:00/${duracion.minutos}:${duracion.segundos}`;
   deslizador['progresoCancion'].max = audio.duration;
 
-
   document.querySelector('.cancion__titulo').innerText = listadoCanciones[reproduciendo];
 
   if(boton['reproducirPausa'].firstChild.classList.contains(icono['pausa'])) audio.play();
-
-
 }
 
-
-
-function duracionCancion(duracionMs){
+function duracionCancion(duracionS){
   let minutos, segundos;
-  minutos = Math.floor(duracionMs/60).toString().padStart(2, '0');
-  segundos = Math.floor(duracionMs - minutos*60).toString().padStart(2, '0');
+  minutos = Math.floor(duracionS/60).toString().padStart(2, '0');
+  segundos = Math.floor(duracionS - minutos*60).toString().padStart(2, '0');
 
   return({minutos, segundos});
-}
-
-function alternarDeslizadorVolumen(e){
-  e.stopPropagation();
-
-  if(e.target == boton['volumen'] || e.target == boton['volumen'].firstChild){
-    deslizador['volumen'].classList.toggle('oculto');
-  }else{
-    deslizador['volumen'].classList.add('oculto');
-  }
-}
-
-function moverVolumen(e){
-  let volumen = e.target.value;
-  audio.volume = volumen/100;
-
-  let iconoVolumen = boton['volumen'].querySelector('i');
-
-  if(audio.volume == 0) iconoVolumen.className = icono['volumenSilenciado'];
-  else if(audio.volume < 0.5) iconoVolumen.className = icono['volumenBajo'];
-  else iconoVolumen.className = icono['volumenAlto'];
 }
 
 function actualizarReproductor(){
   idFrame = requestAnimationFrame(actualizarReproductor);
 
-  //Actualizar tiempo
-  momentoActual = duracionCancion(audio.currentTime);
+  let momentoActual = duracionCancion(audio.currentTime);
   duracionDOM.innerText = `${momentoActual.minutos}:${momentoActual.segundos}/${duracion.minutos}:${duracion.segundos}`;
   deslizador['progresoCancion'].value = audio.currentTime;
 }
@@ -132,11 +90,31 @@ function alternarReproduccion(){
   boton['reproducirPausa'].firstChild.classList.toggle(icono['pausa']);
 
   if(!pausar){
-    audio.play();
     idFrame = requestAnimationFrame(actualizarReproductor);
-  }
-  else {
-    audio.pause();
+    audio.play();
+  } else {
     window.cancelAnimationFrame(idFrame);
+    audio.pause();
   }
+}
+
+function alternarDeslizadorVolumen(e){
+  e.stopPropagation();
+  if(e.target == boton['volumen'] || e.target == boton['volumen'].firstChild){
+    deslizador['volumen'].classList.toggle('oculto');
+  } else {
+    deslizador['volumen'].classList.add('oculto');
+  }
+}
+
+function moverVolumen(e){
+  let volumen = e.target.value;
+
+  audio.volume = volumen/100;
+
+  let iconoVolumen = boton['volumen'].querySelector('i');
+
+  if(volumen == 0) iconoVolumen.className = icono['volumenSilenciado'];
+  else if(volumen <= 50) iconoVolumen.className = icono['volumenBajo'];
+  else iconoVolumen.className = icono['volumenAlto'];
 }
