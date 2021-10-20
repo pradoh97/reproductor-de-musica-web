@@ -41,6 +41,8 @@ function iniciarReproductor(){
   reproductor.deslizador['volumen'].addEventListener('input', moverVolumen);
   reproductor.deslizador['progresoCancion'].addEventListener('input', moverProgreso);
 
+  reproductor['caratula'].style.animationPlayState = 'paused';
+
   cargarCancion(reproduciendo);
 }
 
@@ -107,9 +109,13 @@ function alternarReproduccion(){
   if(!pausar){
     idFrame = requestAnimationFrame(actualizarReproductor);
     cancion.audio.play();
+    reproductor['caratula'].style.animationPlayState = 'running';
+    reproductor.nodo.classList.add('reproduciendo');
   } else {
     window.cancelAnimationFrame(idFrame);
     cancion.audio.pause();
+    reproductor['caratula'].style.animationPlayState = 'paused';
+    reproductor.nodo.classList.remove('reproduciendo');
   }
 }
 
