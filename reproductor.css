@@ -100,13 +100,13 @@ body{
   transition-property: transform, position;
   transition-duration: 1s;
   width: 4.2em;
-  height: 0.1em;
+  height: 0.3em;
   position: absolute;
   top: -0.6em;
   left: 0;
   transform-origin: left top;
-  background-color: rgb(0, 0, 0);
-  border: 2px solid rgb(50, 50, 50);
+  background-color: rgb(50,50,50);;
+  border: 1px solid rgb(100, 100, 100);
 }
 .reproductor.reproduciendo .cancion__caratula .brazo{
   transform: rotate(15deg);
